@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Camera.h"
-#include "ObjectSprite.h"
+#include "Object.h"
 
 #include "Box2D\Box2D.h"
 
@@ -23,18 +23,12 @@ public:
 
 	void update(float _deltatime);
 
-	b2Body* CreateRec(float width, float height, bool isDynamic, float posX, float posY);
-
 private:
 	CCamera* cam;
 	b2World* world;
 
-	CObjectSprite* ground;
-	b2Body* groundCollider;
+	CObject* ground;
 
-	std::vector<CObjectSprite*> sprites;
-	std::vector<b2Body*> boxColliders;
+	std::vector<CObject*> objects;
 
-	const float meterToPixel = 20.0f;
-	const float pixelToMeter = 1.0f / (float)meterToPixel;
 };
