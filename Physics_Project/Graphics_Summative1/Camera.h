@@ -41,8 +41,8 @@ private:
 	float yPos;
 	float zPos;
 
-	float Width = 1280.0f;
-	float Height = 720.0f;
+	float Width = 1600.0f;
+	float Height = 900.0f;
 
 	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);

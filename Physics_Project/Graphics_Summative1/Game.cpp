@@ -7,12 +7,12 @@ CGame::CGame()
 
 	cam = new CCamera();
 
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		sprites.push_back(new CObjectSprite("Assets/textures/white.png"));
+		sprites.push_back(new CObjectSprite("Assets/textures/box.png"));
 	}
 
-	ground = new CObjectSprite("Assets/textures/white.png");
+	ground = new CObjectSprite("Assets/textures/ground.png");
 }
 
 CGame::~CGame()
@@ -79,28 +79,19 @@ b2Body* CGame::CreateRec(float posX, float posY, bool isDynamic, float width, fl
 
 void CGame::init()
 {
-	float boxSize = 40;
-	float groundWidth = 1200;
-	float groundHeight = 40;
+	float boxSize = 64;
+	float groundWidth = 1600;
+	float groundHeight = 64;
 	
 	for (int i = 0; i < sprites.size(); i++)
 	{
 		sprites[i]->init();
 		sprites[i]->scaleMat(glm::vec3(boxSize, boxSize, 1.0f));
-
-		if (i < 15)
-		{
-			boxColliders.push_back(CreateRec((200 + (2 * i)) * pixelToMeter, (40 * i) * pixelToMeter, true, boxSize * pixelToMeter, boxSize * pixelToMeter));
-		}
-		else
-		{
-			boxColliders.push_back(CreateRec((1100 - (2 * i)) * pixelToMeter, (40 * (i - 15)) * pixelToMeter, true, boxSize * pixelToMeter, boxSize * pixelToMeter));
-		}
-
 		
+		boxColliders.push_back(CreateRec(1300 * pixelToMeter, (65 * (i + 1.6f) ) * pixelToMeter, true, (boxSize - 1) * pixelToMeter, (boxSize - 1) * pixelToMeter));
 	}
 	
-	groundCollider = CreateRec(640 * pixelToMeter, 20 * pixelToMeter, false, groundWidth * pixelToMeter, groundHeight * pixelToMeter);
+	groundCollider = CreateRec(800 * pixelToMeter, 32 * pixelToMeter, false, groundWidth * pixelToMeter, groundHeight * pixelToMeter);
 
 	ground->init();
 	ground->scaleMat(glm::vec3(groundWidth, groundHeight, 1.0f));

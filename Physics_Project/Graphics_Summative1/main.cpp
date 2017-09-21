@@ -43,7 +43,7 @@ void update()
 void render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClearColor(0.50f, 0.70f, 1.0f, 1.0f);
 
 	sceneManager->render(deltaTime);
 
@@ -75,8 +75,8 @@ int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
-	glutInitWindowPosition(500, 200);
-	glutInitWindowSize(1280, 720);
+	glutInitWindowPosition(150, 50);
+	glutInitWindowSize(1600, 900);
 	glutCreateWindow("AngryBirds_Summative");
 
 	glewInit();

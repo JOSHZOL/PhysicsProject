@@ -19,10 +19,10 @@ void CObjectSprite::init()
 	program = shaderLoader.CreateProgram("Assets/shaders/VertShader.vs", "Assets/shaders/FragShader.fs");
 
 	GLfloat vertices[] = {
-		-0.5f, 0.5f, 0.0f,  0.0f, 1.0f,
-		0.5f, 0.5f, 0.0f,   1.0f, 1.0f,
-		0.5f, -0.5f, 0.0f,  1.0f, 0.0f,
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f
+		-0.5f, 0.5f, 0.0f,  0.0f, 0.0f,
+		0.5f, 0.5f, 0.0f,   1.0f, 0.0f,
+		0.5f, -0.5f, 0.0f,  1.0f, 1.0f,
+		-0.5f, -0.5f, 0.0f, 0.0f, 1.0f
 
 	};
 
