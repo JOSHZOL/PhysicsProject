@@ -53,13 +53,15 @@ void CGame::init()
 	float groundWidth = 1600;
 	float groundHeight = 64;
 
+	float birdRadius = 32;
+
 	for (int i = 0; i < 10; i++)
 	{
-		boxes.push_back(new CObject("Assets/textures/box.png", world, 1300, (65 * (i + 1.6f)), true, boxSize, boxSize));
+		boxes.push_back(new CObject("Assets/textures/box.png", world, 1300.0f, (65 * (i + 1.6f)), boxSize, boxSize, true, 0.6f, 0.3f, 0.7f));
 	}
 
-	ground = new CObject("Assets/textures/ground.png", world, 800, 32, false, groundWidth, groundHeight);
-	bird = new CObject("Assets/textures/box.png", world, 100, 300, true, boxSize, boxSize);
+	ground = new CObject("Assets/textures/ground.png", world, 800, 32, groundWidth, groundHeight, false);
+	bird = new CObject("Assets/textures/circle.png", world, 100, 300, birdRadius, true, 0.6f, 0.5f, 0.7f);
 
 	// example of adding force
 	float force = 1000;
@@ -68,13 +70,13 @@ void CGame::init()
 
 void CGame::render(float _deltatime)
 {
+	bird->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
+	
 	for (int i = 0; i < boxes.size(); i++)
 	{
 		boxes[i]->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
 	}
 
 	ground->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
-
-	bird->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
 }
 

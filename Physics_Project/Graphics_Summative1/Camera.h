@@ -51,7 +51,7 @@ private:
 	glm::mat4 view;
 	glm::mat4 projection;
 
-	GLfloat cameraSpeed = 2.0f;
+	GLfloat cameraSpeed = 5.0f;
 
 	GLfloat centerX = 1280 / 2;
 	GLfloat centerY = 720 / 2;
