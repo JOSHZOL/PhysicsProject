@@ -61,6 +61,8 @@ void CGame::init()
 	}
 
 	ground = new CObject("Assets/textures/ground.png", world, 800, 32, groundWidth, groundHeight, false);
+
+	// use player class for this instead
 	bird = new CObject("Assets/textures/circle.png", world, 100, 300, birdRadius, true, 0.6f, 0.5f, 0.7f);
 
 	// example of adding force
