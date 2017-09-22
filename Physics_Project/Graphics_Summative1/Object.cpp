@@ -7,10 +7,12 @@ CObject::CObject()
 CObject::CObject(std::string _texture, b2World* _world, float _posX, float _posY, bool _isDynamic, float _width, float _height)
 {
 	sprite = new CObjectSprite(_texture);
-	body = CreateRec(_world, _posX * pixelToMeter, _posY * pixelToMeter, _isDynamic, _width * pixelToMeter, _height * pixelToMeter);
+	body = CreateRec(_world, _posX * pixelToMeter, _posY * pixelToMeter, _isDynamic, (_width - 0.5f) * pixelToMeter, (_height - 0.5f) * pixelToMeter);
 	
 	sprite->scaleMat(glm::vec3(_width, _height, 1.0f));
 	sprite->move(glm::vec3(_posX, _posY, 1.0f));
+
+	init();
 }
 
 CObject::~CObject()
@@ -25,6 +27,11 @@ CObjectSprite* CObject::getSprite()
 b2Body* CObject::getBody()
 {
 	return body;
+}
+
+void CObject::init()
+{
+	sprite->init();
 }
 
 void CObject::update(float _deltatime)

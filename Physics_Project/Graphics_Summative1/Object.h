@@ -14,6 +14,7 @@ public:
 	CObjectSprite* getSprite();
 	b2Body* getBody();
 
+	void init();
 	void update(float _deltatime);
 
 	b2Body* CreateRec(b2World* _world, float posX, float posY, bool isDynamic, float width, float height);

@@ -2,7 +2,7 @@
 
 CGame::CGame()
 {	
-	b2Vec2 gravity = b2Vec2(0.0, -1.0);
+	b2Vec2 gravity = b2Vec2(0.0, -9.0);
 	world = new b2World(gravity);
 
 	cam = new CCamera();
@@ -12,6 +12,11 @@ CGame::~CGame()
 {
 	delete world;
 	delete cam;
+
+	boxes.clear();
+
+	delete ground;
+	delete bird;
 }
 
 void CGame::keyboard(unsigned char key)
@@ -34,10 +39,12 @@ void CGame::update(float _deltatime)
 	world->Step(1.0f/60.0f, 8, 3);
 	cam->update();
 	
-	for (int i = 0; i < objects.size(); i++)
+	for (int i = 0; i < boxes.size(); i++)
 	{
-		objects[i]->update(_deltatime);
+		boxes[i]->update(_deltatime);
 	}
+
+	bird->update(_deltatime);
 }
 
 void CGame::init()
@@ -48,22 +55,26 @@ void CGame::init()
 
 	for (int i = 0; i < 10; i++)
 	{
-		objects.push_back(new CObject("Assets/textures/box.png", world, 1300, (65 * (i + 1.6f)), true, boxSize - 1, boxSize- 1));
-		
-		objects.back()->getSprite()->init();
+		boxes.push_back(new CObject("Assets/textures/box.png", world, 1300, (65 * (i + 1.6f)), true, boxSize, boxSize));
 	}
 
 	ground = new CObject("Assets/textures/ground.png", world, 800, 32, false, groundWidth, groundHeight);
-	ground->getSprite()->init();
+	bird = new CObject("Assets/textures/box.png", world, 100, 300, true, boxSize, boxSize);
+
+	// example of adding force
+	float force = 1000;
+	bird->getBody()->ApplyForce(b2Vec2(15.0 * force, 6.5 * force), bird->getBody()->GetWorldCenter(), true);
 }
 
 void CGame::render(float _deltatime)
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (int i = 0; i < boxes.size(); i++)
 	{
-		objects[i]->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
+		boxes[i]->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
 	}
 
 	ground->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
+
+	bird->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
 }
 

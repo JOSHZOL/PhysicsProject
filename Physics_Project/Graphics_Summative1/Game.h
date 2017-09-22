@@ -27,8 +27,8 @@ private:
 	CCamera* cam;
 	b2World* world;
 
+	CObject* bird;
 	CObject* ground;
 
-	std::vector<CObject*> objects;
-
+	std::vector<CObject*> boxes;
 };
