@@ -28,14 +28,6 @@ public:
 	float getYpos();
 	float getZpos();
 
-	void keyboard(unsigned char key);
-	void keyboard_up(unsigned char key);
-	void mouse(int button, int button_state);
-
-	void MouseInput(int _x, int _y);
-
-	void update();
-
 private:
 	float xPos;
 	float yPos;
@@ -52,18 +44,4 @@ private:
 	glm::mat4 projection;
 
 	GLfloat cameraSpeed = 5.0f;
-
-	GLfloat centerX = 1280 / 2;
-	GLfloat centerY = 720 / 2;
-
-	GLfloat yaw = -90.0f;
-	GLfloat pitch = 0.0f;
-	GLfloat lastX = centerX;
-	GLfloat lastY = centerY;
-	bool firstMouse = true;
-
-	#define BUTTON_UP 0 
-	#define BUTTON_DOWN 1
-
-	unsigned char keyState[255];
 };

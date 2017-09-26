@@ -21,17 +21,55 @@ CGame::~CGame()
 
 void CGame::keyboard(unsigned char key)
 {
-	cam->keyboard(key);
+	keyState[key] = BUTTON_DOWN;
 }
 
 void CGame::keyboard_up(unsigned char key)
 {
-	cam->keyboard_up(key);
+	keyState[key] = BUTTON_UP;
 }
 
-void CGame::MouseInput(int _x, int _y)
+void CGame::MouseInput(int button, int button_state, int _x, int _y)
 {
-	cam->MouseInput(_x, _y);
+#define state ((button_state == GLUT_DOWN) ? BUTTON_DOWN : BUTTON_UP) 
+
+	mouseX = _x;
+	mouseY = -_y + 900;
+
+	switch (button)
+	{
+	case GLUT_LEFT_BUTTON:
+		mouseState[MOUSE_LEFT] = state;
+		break;
+	case GLUT_MIDDLE_BUTTON:
+		mouseState[MOUSE_MIDDLE] = state;
+		break;
+	case GLUT_RIGHT_BUTTON: mouseState[MOUSE_RIGHT] = state;
+		break;
+	}
+}
+
+void CGame::controls()
+{
+	if (keyState[(unsigned char)'w'] == BUTTON_DOWN)
+	{
+		cam->setYpos(cam->getYpos() + 2.5f);
+	}
+
+	if (keyState[(unsigned char)'s'] == BUTTON_DOWN)
+	{
+		cam->setYpos(cam->getYpos() - 2.5f);
+	}
+
+	if (keyState[(unsigned char)'d'] == BUTTON_DOWN)
+	{
+		cam->setXpos(cam->getXpos() + 2.5f);
+	}
+
+	if (keyState[(unsigned char)'a'] == BUTTON_DOWN)
+	{
+		cam->setXpos(cam->getXpos() - 2.5f);
+	}
 }
 
 void CGame::update(float _deltatime)
@@ -44,8 +82,8 @@ void CGame::update(float _deltatime)
 		delta = 0;
 		world->Step(1.0f / 60.0f, 8, 3);
 	}
-	
-	cam->update();
+
+	controls();
 	
 	for (int i = 0; i < boxes.size(); i++)
 	{

@@ -25,9 +25,9 @@ void CSceneManager::keyboard_up(unsigned char key)
 	keyState[key] = BUTTON_UP;
 }
 
-void CSceneManager::MouseInput(int _x, int _y)
+void CSceneManager::MouseInput(int _button, int _button_state, int _x, int _y)
 {
-	Game->MouseInput(_x, _y);
+	Game->MouseInput(_button, _button_state, _x, _y);
 }
 
 void CSceneManager::update(float _deltatime)

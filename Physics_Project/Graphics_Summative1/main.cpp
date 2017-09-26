@@ -63,12 +63,7 @@ void keyboard_up(unsigned char key, int x, int y)
 
 void mouse(int button, int button_state, int x, int y)
 {
-	//Cam->mouse(button, button_state);
-}
-
-void mousePassiveMove(int x, int y)
-{
-	sceneManager->MouseInput(x, y);
+	sceneManager->MouseInput(button, button_state, x, y);
 }
 
 int main(int argc, char **argv)
@@ -83,7 +78,6 @@ int main(int argc, char **argv)
 	init();
 
 	glutMouseFunc(mouse);
-	glutPassiveMotionFunc(mousePassiveMove);
 
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboard_up);

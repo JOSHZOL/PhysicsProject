@@ -1,7 +1,12 @@
 ﻿  Game.cpp
-c:\users\jo5hm\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(50): warning C4018: '<': signed/unsigned mismatch
-c:\users\jo5hm\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(85): warning C4244: 'argument': conversion from 'double' to 'float32', possible loss of data
-c:\users\jo5hm\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(92): warning C4018: '<': signed/unsigned mismatch
+c:\users\jo5hm\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(88): warning C4018: '<': signed/unsigned mismatch
+c:\users\jo5hm\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(123): warning C4244: 'argument': conversion from 'double' to 'float32', possible loss of data
+c:\users\jo5hm\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(130): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  main.cpp
+  SceneManager.cpp
+  Generating Code...
   SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
 Camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification

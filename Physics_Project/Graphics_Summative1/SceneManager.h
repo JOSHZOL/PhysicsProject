@@ -11,7 +11,7 @@ public:
 	void keyboard(unsigned char key);
 	void keyboard_up(unsigned char key);
 
-	void MouseInput(int _x, int _y);
+	void MouseInput(int _button, int _button_state, int _x, int _y);
 
 	void init();
 	void render(float _deltatime);
