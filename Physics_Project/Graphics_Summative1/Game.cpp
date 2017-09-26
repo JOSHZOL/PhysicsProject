@@ -36,12 +36,27 @@ void CGame::MouseInput(int _x, int _y)
 
 void CGame::update(float _deltatime)
 {
-	world->Step(1.0f/60.0f, 8, 3);
+	static float delta = 0;
+	delta += _deltatime;
+
+	if (delta > (1.0f / 250.0))
+	{
+		delta = 0;
+		world->Step(1.0f / 60.0f, 8, 3);
+	}
+	
 	cam->update();
 	
 	for (int i = 0; i < boxes.size(); i++)
 	{
 		boxes[i]->update(_deltatime);
+
+		if (boxes[i]->getBody()->GetPosition().y < 0.0f)
+		{
+			world->DestroyBody(boxes[i]->getBody());
+			boxes[i] = boxes.back();
+			boxes.pop_back();
+		}
 	}
 
 	bird->update(_deltatime);
