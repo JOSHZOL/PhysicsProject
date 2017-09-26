@@ -1,9 +1,6 @@
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
 #include "Dependencies\soil\soil.h"
-#include "Dependencies\glm\glm.hpp"
-#include "Dependencies\glm\gtc\matrix_transform.hpp"
-#include "Dependencies\glm\gtc\type_ptr.hpp"
 #include "Dependencies\FMOD\fmod.hpp"
 
 #include <iostream>
@@ -63,7 +60,12 @@ void keyboard_up(unsigned char key, int x, int y)
 
 void mouse(int button, int button_state, int x, int y)
 {
-	sceneManager->MouseInput(button, button_state, x, y);
+	sceneManager->MouseInput(button, button_state);
+}
+
+void mousePosition(int x, int y)
+{
+	sceneManager->MousePosition(x, y);
 }
 
 int main(int argc, char **argv)
@@ -78,6 +80,9 @@ int main(int argc, char **argv)
 	init();
 
 	glutMouseFunc(mouse);
+
+	glutMotionFunc(mousePosition);
+	glutPassiveMotionFunc(mousePosition);
 
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboard_up);
