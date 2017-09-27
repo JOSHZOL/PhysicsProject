@@ -28,6 +28,6 @@ private:
 	CObjectSprite* sprite;
 	b2Body* body;
 
-	const float meterToPixel = 20.0f;
-	const float pixelToMeter = 1.0f / (float)meterToPixel;
+	float meterToPixel = 160.0f;
+	float pixelToMeter = 1.0f / (float)meterToPixel;
 };

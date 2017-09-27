@@ -2,7 +2,7 @@
 
 CGame::CGame()
 {	
-	b2Vec2 gravity = b2Vec2(0.0, -10.0);
+	b2Vec2 gravity = b2Vec2(0.0, -9.8);
 	world = new b2World(gravity);
 
 	cam = new CCamera();
@@ -98,7 +98,7 @@ void CGame::controls()
 
 		bird->getBody()->SetActive(true);
 
-		float force = 1500 * glm::distance(origin, release) * pixelToMeter;
+		float force = 80 * glm::distance(origin, release) * pixelToMeter;
 
 		bird->getBody()->ApplyForce(b2Vec2(direction.x * force, direction.y * force), bird->getBody()->GetWorldCenter(), true);
 	}
@@ -129,10 +129,10 @@ void CGame::update(float _deltatime)
 	static float delta = 0;
 	delta += _deltatime;
 
-	if (delta > (1.0f / 200.0))
+	if (delta > (1.0f / 70.0))
 	{
 		delta = 0;
-		world->Step(1.0f / 60.0f, 8, 3);
+		world->Step(1.0f / 70.0f, 8, 3);
 	}
 
 	controls();

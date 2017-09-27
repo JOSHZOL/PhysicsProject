@@ -58,6 +58,6 @@ private:
 	unsigned char keyState[255];
 	unsigned char mouseState[3];
 
-	const float meterToPixel = 20.0f;
-	const float pixelToMeter = 1.0f / (float)meterToPixel;
+	float meterToPixel = 160.0f;
+	float pixelToMeter = 1.0f / (float)meterToPixel;
 };
