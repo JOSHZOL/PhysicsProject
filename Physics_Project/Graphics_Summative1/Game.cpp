@@ -91,14 +91,14 @@ void CGame::controls()
 		mousePressed = false;
 
 		// example of adding force
-		release = glm::vec2(mouseX, mouseY);
+		release = glm::vec2(bird->getBody()->GetPosition().x * meterToPixel, bird->getBody()->GetPosition().y * meterToPixel);
 		direction = origin - release;
 
 		direction = glm::normalize(direction);
 
 		bird->getBody()->SetActive(true);
 
-		float force = 1000 * glm::distance(origin, release) * pixelToMeter;
+		float force = 1500 * glm::distance(origin, release) * pixelToMeter;
 
 		bird->getBody()->ApplyForce(b2Vec2(direction.x * force, direction.y * force), bird->getBody()->GetWorldCenter(), true);
 	}
@@ -160,20 +160,20 @@ void CGame::init()
 
 	float birdRadius = 32;
 
-	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f, 400.0f, 32, false, 0.6f, 0.5f, 0.7f));
-	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + boxSize, 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
-	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 2), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
-	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 3), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
-	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 4), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
-	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 5), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
-	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 6), 400.0f, 32, false, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 800.0f, 400.0f, 32, false, 0.6f, 0.5f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 800.0f + boxSize, 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 800.0f + (boxSize * 2), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 800.0f + (boxSize * 3), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 800.0f + (boxSize * 4), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 800.0f + (boxSize * 5), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 800.0f + (boxSize * 6), 400.0f, 32, false, 0.6f, 0.3f, 0.7f));
 
-	createJoint(boxes[0]->getBody(), boxes[1]->getBody(), -32 * pixelToMeter);
-	createJoint(boxes[1]->getBody(), boxes[2]->getBody(), -32 * pixelToMeter);
-	createJoint(boxes[2]->getBody(), boxes[3]->getBody(), -32 * pixelToMeter);
-	createJoint(boxes[3]->getBody(), boxes[4]->getBody(), -32 * pixelToMeter);
-	createJoint(boxes[4]->getBody(), boxes[5]->getBody(), -32 * pixelToMeter);
-	createJoint(boxes[6]->getBody(), boxes[5]->getBody(), 32 * pixelToMeter);
+	createJoint(boxes[0]->getBody(), boxes[1]->getBody(), -16 * pixelToMeter);
+	createJoint(boxes[1]->getBody(), boxes[2]->getBody(), -16 * pixelToMeter);
+	createJoint(boxes[2]->getBody(), boxes[3]->getBody(), -16 * pixelToMeter);
+	createJoint(boxes[3]->getBody(), boxes[4]->getBody(), -16 * pixelToMeter);
+	createJoint(boxes[4]->getBody(), boxes[5]->getBody(), -16 * pixelToMeter);
+	createJoint(boxes[6]->getBody(), boxes[5]->getBody(), 16 * pixelToMeter);
 
 	for (int i = 0; i < 10; i++)
 	{
