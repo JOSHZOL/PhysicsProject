@@ -28,11 +28,15 @@ public:
 	void init();
 	void render(float _deltatime);
 
+	void createJoint(b2Body * _body1, b2Body * _body2, float _width);
+
 	void update(float _deltatime);
 
 private:
 	CCamera* cam;
 	b2World* world;
+
+	CObjectSprite* catapult;
 
 	CObject* bird;
 	CObject* ground;

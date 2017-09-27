@@ -6,6 +6,10 @@ CGame::CGame()
 	world = new b2World(gravity);
 
 	cam = new CCamera();
+
+	catapult = new CObjectSprite("Assets/textures/box.png");
+	catapult->scaleMat(glm::vec3(30.0f, 300.0f, 1.0f));
+	catapult->move(glm::vec3(300, 150, 1));
 }
 
 CGame::~CGame()
@@ -156,6 +160,21 @@ void CGame::init()
 
 	float birdRadius = 32;
 
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f, 400.0f, 32, false, 0.6f, 0.5f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + boxSize, 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 2), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 3), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 4), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 5), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 600.0f + (boxSize * 6), 400.0f, 32, false, 0.6f, 0.3f, 0.7f));
+
+	createJoint(boxes[0]->getBody(), boxes[1]->getBody(), -32 * pixelToMeter);
+	createJoint(boxes[1]->getBody(), boxes[2]->getBody(), -32 * pixelToMeter);
+	createJoint(boxes[2]->getBody(), boxes[3]->getBody(), -32 * pixelToMeter);
+	createJoint(boxes[3]->getBody(), boxes[4]->getBody(), -32 * pixelToMeter);
+	createJoint(boxes[4]->getBody(), boxes[5]->getBody(), -32 * pixelToMeter);
+	createJoint(boxes[6]->getBody(), boxes[5]->getBody(), 32 * pixelToMeter);
+
 	for (int i = 0; i < 10; i++)
 	{
 		boxes.push_back(new CObject("Assets/textures/box.png", world, 1300.0f, (65 * (i + 1.6f)), boxSize, boxSize, true, 0.6f, 0.3f, 0.7f));
@@ -167,12 +186,16 @@ void CGame::init()
 	bird = new CObject("Assets/textures/circle.png", world, 300, 300, birdRadius, true, 0.6f, 0.5f, 0.7f);
 
 	bird->getBody()->SetActive(false);
+
+	catapult->init();
 }
 
 void CGame::render(float _deltatime)
 {
 	bird->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
 	
+	catapult->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
+
 	for (int i = 0; i < boxes.size(); i++)
 	{
 		boxes[i]->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
@@ -181,3 +204,11 @@ void CGame::render(float _deltatime)
 	ground->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
 }
 
+void CGame::createJoint(b2Body* _body1, b2Body* _body2, float _width)
+{
+	b2RevoluteJointDef joint;
+
+	b2Vec2 anchor(_body1->GetPosition().x + _width, _body1->GetPosition().y);
+	joint.Initialize(_body1, _body2, anchor);
+	world->CreateJoint(&joint);
+}
