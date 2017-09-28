@@ -10,6 +10,10 @@ CGame::CGame()
 	catapult = new CObjectSprite("Assets/textures/box.png");
 	catapult->scaleMat(glm::vec3(30.0f, 300.0f, 1.0f));
 	catapult->move(glm::vec3(300, 150, 1));
+
+	slider = new CObjectSprite("Assets/textures/box.png");
+	slider->scaleMat(glm::vec3(430.0f, 10.0f, 1.0f));
+	slider->move(glm::vec3(690, 600, 1));
 }
 
 CGame::~CGame()
@@ -168,12 +172,25 @@ void CGame::init()
 	boxes.push_back(new CObject("Assets/textures/circle.png", world, 800.0f + (boxSize * 5), 400.0f, 32, true, 0.6f, 0.3f, 0.7f));
 	boxes.push_back(new CObject("Assets/textures/circle.png", world, 800.0f + (boxSize * 6), 400.0f, 32, false, 0.6f, 0.3f, 0.7f));
 
-	createJoint(boxes[0]->getBody(), boxes[1]->getBody(), -16 * pixelToMeter);
-	createJoint(boxes[1]->getBody(), boxes[2]->getBody(), -16 * pixelToMeter);
-	createJoint(boxes[2]->getBody(), boxes[3]->getBody(), -16 * pixelToMeter);
-	createJoint(boxes[3]->getBody(), boxes[4]->getBody(), -16 * pixelToMeter);
-	createJoint(boxes[4]->getBody(), boxes[5]->getBody(), -16 * pixelToMeter);
-	createJoint(boxes[6]->getBody(), boxes[5]->getBody(), 16 * pixelToMeter);
+	createRevoluteJoint(boxes[0]->getBody(), boxes[1]->getBody(), 32 * pixelToMeter);
+	createRevoluteJoint(boxes[1]->getBody(), boxes[2]->getBody(), 32 * pixelToMeter);
+	createRevoluteJoint(boxes[2]->getBody(), boxes[3]->getBody(), 32 * pixelToMeter);
+	createRevoluteJoint(boxes[3]->getBody(), boxes[4]->getBody(), 32 * pixelToMeter);
+	createRevoluteJoint(boxes[4]->getBody(), boxes[5]->getBody(), 32 * pixelToMeter);
+	createRevoluteJoint(boxes[6]->getBody(), boxes[5]->getBody(), -32 * pixelToMeter);
+
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 500.0f, 600.0f, 32, false, 0.6f, 0.5f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 500.0f + (boxSize * 1), 600.0f, 32, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/circle.png", world, 500.0f + (boxSize * 6), 600.0f, 32, false, 0.6f, 0.5f, 0.7f));
+
+	createPrismaticJoint(boxes[7]->getBody(), boxes[8]->getBody());
+
+	boxes.push_back(new CObject("Assets/textures/box.png", world, 1300.0f - (boxSize / 2), 800.0f, boxSize, boxSize, true, 0.6f, 0.3f, 0.7f));
+	boxes.push_back(new CObject("Assets/textures/box.png", world, 1300.0f + (boxSize / 2), 800.0f, boxSize, boxSize, true, 0.6f, 0.3f, 0.7f));
+
+	createWeldJoint(boxes[10]->getBody(), boxes[11]->getBody(), 32 * pixelToMeter);
+
+	boxes[8]->getBody()->ApplyForce(b2Vec2(100, 0), boxes[8]->getBody()->GetWorldCenter(), true);
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -188,6 +205,7 @@ void CGame::init()
 	bird->getBody()->SetActive(false);
 
 	catapult->init();
+	slider->init();
 }
 
 void CGame::render(float _deltatime)
@@ -195,6 +213,7 @@ void CGame::render(float _deltatime)
 	bird->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
 	
 	catapult->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
+	slider->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
 
 	for (int i = 0; i < boxes.size(); i++)
 	{
@@ -204,9 +223,28 @@ void CGame::render(float _deltatime)
 	ground->getSprite()->render(cam->getViewMatrix(), cam->getProjectionMatrix(), cam->getCameraPos(), _deltatime);
 }
 
-void CGame::createJoint(b2Body* _body1, b2Body* _body2, float _width)
+void CGame::createRevoluteJoint(b2Body* _body1, b2Body* _body2, float _width)
 {
 	b2RevoluteJointDef joint;
+
+	b2Vec2 anchor(_body1->GetPosition().x + _width, _body1->GetPosition().y);
+	joint.Initialize(_body1, _body2, anchor);
+	world->CreateJoint(&joint);
+}
+
+void CGame::createPrismaticJoint(b2Body * _body1, b2Body * _body2)
+{
+	b2PrismaticJointDef joint;
+
+	b2Vec2 anchor(_body1->GetPosition().x , _body1->GetPosition().y);
+	joint.Initialize(_body1, _body2, anchor, b2Vec2(1, 0));
+	joint.collideConnected = true;
+	world->CreateJoint(&joint);
+}
+
+void CGame::createWeldJoint(b2Body * _body1, b2Body * _body2, float _width)
+{
+	b2WeldJointDef joint;
 
 	b2Vec2 anchor(_body1->GetPosition().x + _width, _body1->GetPosition().y);
 	joint.Initialize(_body1, _body2, anchor);

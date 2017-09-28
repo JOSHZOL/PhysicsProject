@@ -28,7 +28,9 @@ public:
 	void init();
 	void render(float _deltatime);
 
-	void createJoint(b2Body * _body1, b2Body * _body2, float _width);
+	void createRevoluteJoint(b2Body * _body1, b2Body * _body2, float _width);
+	void createPrismaticJoint(b2Body * _body1, b2Body * _body2);
+	void createWeldJoint(b2Body * _body1, b2Body * _body2, float _width);
 
 	void update(float _deltatime);
 
@@ -37,6 +39,7 @@ private:
 	b2World* world;
 
 	CObjectSprite* catapult;
+	CObjectSprite* slider;
 
 	CObject* bird;
 	CObject* ground;

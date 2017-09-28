@@ -10,7 +10,7 @@ CObject::CObject(std::string _texture, b2World* _world, float _posX, float _posY
 {
 	sprite = new CObjectSprite(_texture);
 	body = CreateRec(_world, _posX * pixelToMeter, _posY * pixelToMeter, _isDynamic, 
-		(_width - 2.5f) * pixelToMeter, (_height - 2.5f) * pixelToMeter, 0.2f, 0.0f);
+		(_width - 2.4f) * pixelToMeter, (_height - 2.4f) * pixelToMeter, 0.2f, 0.0f);
 
 	sprite->scaleMat(glm::vec3(_width, _height, 1.0f));
 	sprite->move(glm::vec3(_posX, _posY, 1.0f));
@@ -24,7 +24,7 @@ CObject::CObject(std::string _texture, b2World* _world, float _posX, float _posY
 {
 	sprite = new CObjectSprite(_texture);
 	body = CreateRec(_world, _posX * pixelToMeter, _posY * pixelToMeter, _isDynamic, 
-		(_width - 2.5f) * pixelToMeter, (_height - 2.5f) * pixelToMeter, _friction, _bounce);
+		(_width - 2.4f) * pixelToMeter, (_height - 2.4f) * pixelToMeter, _friction, _bounce);
 
 	body->SetAngularDamping(_angularDamping);
 

@@ -1,7 +1,7 @@
 ﻿  Game.cpp
 d:\users\joshua.rid6873\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(5): warning C4305: 'argument': truncation from 'double' to 'float32'
-d:\users\joshua.rid6873\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(140): warning C4018: '<': signed/unsigned mismatch
-d:\users\joshua.rid6873\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(199): warning C4018: '<': signed/unsigned mismatch
+d:\users\joshua.rid6873\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(144): warning C4018: '<': signed/unsigned mismatch
+d:\users\joshua.rid6873\source\repos\physicsproject\physics_project\graphics_summative1\game.cpp(218): warning C4018: '<': signed/unsigned mismatch
   SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
 Camera.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
