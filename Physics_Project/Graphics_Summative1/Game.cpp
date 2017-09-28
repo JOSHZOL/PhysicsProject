@@ -5,6 +5,10 @@ CGame::CGame()
 	b2Vec2 gravity = b2Vec2(0.0, -9.8);
 	world = new b2World(gravity);
 
+	listener = new CCollisionListener();
+
+	world->SetContactListener(listener);
+
 	cam = new CCamera();
 
 	catapult = new CObjectSprite("Assets/textures/box.png");
@@ -58,9 +62,6 @@ void CGame::MousePosition(int _x, int _y)
 {
 	mouseX = _x;
 	mouseY = -_y + 900;
-
-	std::cout << mouseX << std::endl;
-	std::cout << mouseY << std::endl;
 }
 
 void CGame::controls()
@@ -154,6 +155,16 @@ void CGame::update(float _deltatime)
 	}
 
 	bird->update(_deltatime);
+	
+	for (int i = 0; i < boxes.size(); i++)
+	{
+		if (boxes[i]->getBody() == listener->getDestroy())
+		{
+			boxes[i] = boxes.back();
+			boxes.pop_back();
+			world->DestroyBody(listener->getDestroy());
+		}
+	}
 }
 
 void CGame::init()
@@ -195,6 +206,7 @@ void CGame::init()
 	for (int i = 0; i < 10; i++)
 	{
 		boxes.push_back(new CObject("Assets/textures/box.png", world, 1300.0f, (65 * (i + 1.6f)), boxSize, boxSize, true, 0.6f, 0.3f, 0.7f));
+		boxes.back()->getBody()->SetUserData(&typeBox);
 	}
 
 	ground = new CObject("Assets/textures/ground.png", world, 800, 32, groundWidth, groundHeight, false);
@@ -203,6 +215,7 @@ void CGame::init()
 	bird = new CObject("Assets/textures/circle.png", world, 300, 300, birdRadius, true, 0.6f, 0.5f, 0.7f);
 
 	bird->getBody()->SetActive(false);
+	bird->getBody()->SetUserData(&typeBird);
 
 	catapult->init();
 	slider->init();

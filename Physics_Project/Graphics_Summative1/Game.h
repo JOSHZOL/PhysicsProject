@@ -6,6 +6,7 @@
 
 #include "Camera.h"
 #include "Object.h"
+#include "CollisionListener.h"
 
 #include "Box2D\Box2D.h"
 
@@ -45,6 +46,11 @@ private:
 	CObject* ground;
 
 	std::vector<CObject*> boxes;
+
+	CCollisionListener* listener;
+
+	int typeBox = 2;
+	int typeBird = 1;
 
 	int mouseX;
 	int mouseY;
